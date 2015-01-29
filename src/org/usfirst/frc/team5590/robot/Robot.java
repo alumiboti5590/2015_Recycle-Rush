@@ -5,7 +5,7 @@ package org.usfirst.frc.team5590.robot;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
@@ -100,7 +100,8 @@ public class Robot extends IterativeRobot {
     	
     	//VERT LIFT END
     	
-    }
+    	System.out.println(RobotMap.encode.get());
+   }
     
     /**
      * This function is called periodically during test mode
