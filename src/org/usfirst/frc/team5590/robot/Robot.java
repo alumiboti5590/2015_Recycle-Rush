@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Victor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,6 +22,7 @@ public class Robot extends IterativeRobot {
 	public VerticalLift vertLift;
 	public Drivetrain drivetrain;
 	public Slides slider;
+	private Victor liftController;
 	/**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -31,6 +33,8 @@ public class Robot extends IterativeRobot {
     	drivetrain = new Drivetrain();
     	vertLift = new VerticalLift();
     	slider = new Slides();
+    	
+    	liftController = new Victor(9);
     }
 
     /**
@@ -73,6 +77,12 @@ public class Robot extends IterativeRobot {
     		drivetrain.rotateLeft(.6);
     	}
     	
+    	//Lift Control
+    	if (oi.y.get()){
+    		liftController.set(.3);
+    	}
+    	else{liftController.set(0);
+    	}
     	
     	//SHHHH (Slalom)
     	if (oi.stop.get()) {
@@ -101,6 +111,7 @@ public class Robot extends IterativeRobot {
     	//VERT LIFT END
     	
     	System.out.println(RobotMap.encode.get());
+    	
    }
     
     /**
