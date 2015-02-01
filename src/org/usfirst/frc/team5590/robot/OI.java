@@ -45,13 +45,13 @@ public class OI {
     public JoystickButton a, b, x, y, rightB, leftB, start, stop;
     
     //Logitech Buttons
-    public JoystickButton seven, eight, nine, ten, eleven, twelve;
+    public JoystickButton trigger, thumb, seven, eight, nine, ten, eleven, twelve;
     
     double xboxTrigger;
     //Xbox Axis
     double xboxLeftYAxis,  xboxRightYAxis;
     //Logitech Axis
-    double logYAxis;
+    double logYAxis, logThrottleAxis;
     
 
     public OI() {
@@ -88,7 +88,14 @@ public class OI {
         //Get Y Axis Variable
         logYAxis = logitech.getRawAxis(2);
         
+        //Get Throttle Axis variable
+        logThrottleAxis = logitech.getRawAxis(4);
+        
         //Declare Buttons
+        trigger = new JoystickButton(logitech, 1);
+        
+        thumb = new JoystickButton(logitech, 2);
+        
         seven = new JoystickButton(logitech, 7);
         
         eight = new JoystickButton(logitech, 8);

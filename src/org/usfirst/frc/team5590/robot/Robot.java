@@ -67,7 +67,9 @@ public class Robot extends IterativeRobot {
     		drivetrain.takeJoystickInput(deadzone(left), deadzone(right));
     	}
         
-        
+        if (oi.trigger.get() == true){
+        	
+        }
         //Rotate
         //Left trigger == forward...Right trigger is backwards
     	if (oi.rightB.get() && !oi.a.get()) {
@@ -77,9 +79,16 @@ public class Robot extends IterativeRobot {
     		drivetrain.rotateLeft(.6);
     	}
     	
-    	//Lift Control
-    	if (oi.y.get()){
-    		liftController.set(.3);
+    	//Lift Control using Throttle
+    	double throttle;
+    	throttle = oi.logitech.getRawAxis(3);
+    	throttle=((-throttle+1)/2);
+    	
+    	if (oi.trigger.get()){
+    		liftController.set(throttle);
+    	}
+    	else if(oi.thumb.get()){
+    		liftController.set(-throttle);
     	}
     	else{liftController.set(0);
     	}
@@ -90,14 +99,15 @@ public class Robot extends IterativeRobot {
     	}
     	if (oi.start.get()) {
     		drivetrain.takeJoystickInput(left, left / 2);
-    	} //END SHHH
+    	}
+    	//END SHHH
     	
     	//DRIVE ROBOT END
     	
     	//DRAWER BEGIN
     	//Figure out Y Axis of Logitech
     	double drawAxis;
-    	drawAxis = oi.logitech.getRawAxis(2);
+    	drawAxis = oi.logitech.getRawAxis(1);
     	
     	if (deadzone(drawAxis) > 0) {
     		slider.extend();
@@ -110,7 +120,7 @@ public class Robot extends IterativeRobot {
     	
     	//VERT LIFT END
     	
-    	System.out.println(RobotMap.encode.get());
+    	System.out.println(RobotMap.liftLeft.getDistance());
     	
    }
     
