@@ -22,7 +22,6 @@ public class Robot extends IterativeRobot {
 	public VerticalLift vertLift;
 	public Drivetrain drivetrain;
 	public Slides slider;
-	private Victor liftController;
 	/**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -34,7 +33,6 @@ public class Robot extends IterativeRobot {
     	vertLift = new VerticalLift();
     	slider = new Slides();
     	
-    	liftController = new Victor(9);
     }
 
     /**
@@ -85,12 +83,12 @@ public class Robot extends IterativeRobot {
     	throttle=((-throttle+1)/2);
     	
     	if (oi.trigger.get()){
-    		liftController.set(throttle);
+    		vertLift.setHeight(throttle);
     	}
     	else if(oi.thumb.get()){
-    		liftController.set(-throttle);
+    		vertLift.setHeight(-throttle);
     	}
-    	else{liftController.set(0);
+    	else{vertLift.setHeight(0);
     	}
     	
     	//SHHHH (Slalom)
