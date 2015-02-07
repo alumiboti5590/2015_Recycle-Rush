@@ -22,6 +22,9 @@ public class Robot extends IterativeRobot {
 	public VerticalLift vertLift;
 	public Drivetrain drivetrain;
 	public Slides slider;
+	boolean slideExtend = false, slideRetract = false;
+	boolean liftUp = false, liftDown = false;
+	public int pos = -1;
 	/**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -32,6 +35,7 @@ public class Robot extends IterativeRobot {
     	drivetrain = new Drivetrain();
     	vertLift = new VerticalLift();
     	slider = new Slides();
+    	slider.init();
     	
     }
 
@@ -42,8 +46,8 @@ public class Robot extends IterativeRobot {
     	//In theory this should work....if not...well then shit...good luck
     	//If no speed value, then put -1
     	AutonomousMode autoCommand = new AutonomousMode(this);
-    	autoCommand.autonomousTask(5, "speed", .5);
-    	autoCommand.autonomousTask(3, "stop", 0);
+    	autoCommand.autoTask(5, "speed", .5);
+    	autoCommand.autoTask(3, "stop", 0);
     	
     }
 
@@ -79,19 +83,6 @@ public class Robot extends IterativeRobot {
     		drivetrain.rotateLeft(.6);
     	}
     	
-    	//Lift Control using Throttle
-    	double throttle;
-    	throttle = oi.logitech.getRawAxis(3);
-    	throttle=((-throttle+1)/2);
-    	
-    	if (oi.trigger.get()){
-    		vertLift.setHeight(throttle);
-    	}
-    	else if(oi.thumb.get()){
-    		vertLift.setHeight(-throttle);
-    	}
-    	else{vertLift.setHeight(0);
-    	}
     	
     	//SHHHH (Slalom)
     	if (oi.stop.get()) {
@@ -107,16 +98,60 @@ public class Robot extends IterativeRobot {
     	//DRAWER BEGIN
     	//Figure out Y Axis of Logitech
     	double drawAxis;
-    	drawAxis = oi.logitech.getRawAxis(1);
+    	drawAxis = oi.logitech.getRawAxis(6);
     	
+    	//USED FOR TESTING SLIDER MANUALLY
     	if (deadzone(drawAxis) > 0) {
-    		slider.extend();
+    		slider.setX(drawAxis);
     	} else if (deadzone(drawAxis) < 0) {
-    		slider.retract();
+    		slider.setX(drawAxis);
     	}
+    	//END MANUAL TEST
+    	
+    	if (oi.three.get()) {
+    		slideExtend = true;
+    	}
+    	if (oi.four.get()) {
+    		slideRetract = true;
+    	}
+    	
+    	if (slideExtend) {
+    		slideExtend = slider.extend();
+    	} else {
+    		slider.setX(0);
+    	}
+    	
+    	if (slideRetract) {
+    		slideRetract = slider.retract();
+    	} else {
+    		slider.setX(0);
+    	}
+    	
+    	
     	//DRAWER END
     	
     	//VERT LIFT START
+    	
+    	double liftAx = oi.logitech.getRawAxis(2);
+    	if (deadzone(liftAx) != 0) {
+    		vertLift.setHeight(deadzone(liftAx));
+    	}
+    	
+    	
+    	if (oi.eleven.get()) { pos = 0;}
+    	
+    	if (oi.twelve.get()) {pos = 1;}
+    	
+    	if (oi.nine.get()) { pos = 2;}
+    	
+    	if (oi.ten.get()) {	pos = 3; }
+    	
+    	if (oi.seven.get()) { pos = 4; }
+    	
+    	if (pos != -1) { //Moves lift mech
+    		pos = vertLift.mover(pos);
+    	}
+    	
     	
     	//VERT LIFT END
     	

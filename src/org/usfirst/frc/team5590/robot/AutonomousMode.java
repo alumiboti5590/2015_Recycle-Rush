@@ -13,7 +13,7 @@ public class AutonomousMode {
 		robot = robo;
 	}
     
-	public void autonomousTask(int seconds, String command, double speed) {
+	public void autoTask(int seconds, String command, double speed) {
 		timer = new Timer();
 		//Creates task for set number of seconds
 		timer.schedule(new TaskFinisher(), seconds * 1000);
