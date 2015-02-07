@@ -41,7 +41,9 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
     	//In theory this should work....if not...well then shit...good luck
     	//If no speed value, then put -1
-    	new AutonomousTask(5, "speed", .5);
+    	AutonomousMode autoCommand = new AutonomousMode(this);
+    	autoCommand.autonomousTask(5, "speed", .5);
+    	autoCommand.autonomousTask(3, "stop", 0);
     	
     }
 
@@ -137,38 +139,5 @@ public class Robot extends IterativeRobot {
     	return axisAmount;
     }
     
-    
-    /*
-     * Use this for scheduling autonomous commands with time durations 
-     * (See autoPeriodic)
-     */
-    public class AutonomousTask {
-    	Timer timer;
-     
-    	public AutonomousTask(int seconds, String command, double speed) {
-    		timer = new Timer();
-    		timer.schedule(new TaskFinisher(), seconds * 1000);
-    		//Put run code in here
-    		switch (command) {
-    			case "speed": 
-    				drivetrain.setSpeed(speed);
-    				break;
-    			case "turnRight":
-    				drivetrain.rotateRight(speed);
-    				break;
-    			case "turnLeft":
-    				drivetrain.rotateLeft(speed);
-    			case "stop":
-    				drivetrain.stop();
-    		}
-    	}
-    	//Don't touch this!!!!!!!!!! 
-    	class TaskFinisher extends TimerTask {
-    		public void run() {
-    			System.out.format("Timer Task Finished..!%n");
-    			timer.cancel(); // Terminate the timer thread
-    		}
-    	}
-     
-    }
+    	
 }

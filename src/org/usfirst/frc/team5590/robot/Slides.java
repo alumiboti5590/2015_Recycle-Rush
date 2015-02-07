@@ -33,16 +33,20 @@ public class Slides extends Subsystem {
     // here. Call these from Commands.
     public void extend() {
     	sliderControl.reset();
-    	while(sliderControl.get() < FULL_EXTEND) {
+    	while(sliderControl.get() <= FULL_EXTEND) {
     		drawerSlide.set(.4);
     	}
     }
     
     public void retract() {
     	sliderControl.reset();
-    	while(sliderControl.get() < FULL_EXTEND) {
+    	while(sliderControl.get() > -FULL_EXTEND) {
     		drawerSlide.set(-.4);
     	}
+    }
+    
+    public void setX(double amount) {
+    	drawerSlide.set(amount);
     }
 
     public void initDefaultCommand() {
