@@ -36,6 +36,7 @@ public class Robot extends IterativeRobot {
     	vertLift = new VerticalLift();
     	slider = new Slides();
     	slider.init();
+    	vertLift.init();
     	
     }
 
@@ -69,11 +70,9 @@ public class Robot extends IterativeRobot {
     		drivetrain.takeJoystickInput(deadzone(left), deadzone(left));
     	} else {
     		drivetrain.takeJoystickInput(deadzone(left), deadzone(right));
+    		drivetrain.takeJoystickInput(deadzone(trigger), deadzone(-trigger));
     	}
         
-        if (oi.trigger.get() == true){
-        	
-        }
         //Rotate
         //Left trigger == forward...Right trigger is backwards
     	if (oi.rightB.get() && !oi.a.get()) {

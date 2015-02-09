@@ -47,7 +47,7 @@ public class Slides extends Subsystem {
     }
     
     public boolean retract() {
-    	if(sliderControl.getDistance() > (-FULL_EXTEND + curDistance)) {
+    	if(sliderControl.getDistance() > (FULL_EXTEND + curDistance)) {
     		drawerSlide.set(-.7);
     		return true;
     	} else {
@@ -57,6 +57,11 @@ public class Slides extends Subsystem {
     
     public void setX(double amount) {
     	drawerSlide.set(amount);
+    	if((FULL_EXTEND>0)&&(sliderControl.getDistance()>(FULL_EXTEND + curDistance))
+    			||(FULL_EXTEND<0)&&(sliderControl.getDistance()<(FULL_EXTEND + curDistance))){
+    				//Checks if the slide is fully extended or retracted
+    		drawerSlide.set(0);
+    	}
     }
 
     public void initDefaultCommand() {
