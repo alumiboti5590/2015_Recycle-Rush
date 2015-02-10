@@ -97,14 +97,24 @@ public class Robot extends IterativeRobot {
     	//DRAWER BEGIN
     	//Figure out Y Axis of Logitech
     	double drawAxis;
-    	drawAxis = oi.logitech.getRawAxis(6);
+    	drawAxis = (oi.logitech.getRawAxis(5))/2;
+    	double twist;
+    	twist = oi.logitech.getRawAxis(2);
     	
     	//USED FOR TESTING SLIDER MANUALLY
-    	if (deadzone(drawAxis) > 0) {
-    		slider.setX(drawAxis);
-    	} else if (deadzone(drawAxis) < 0) {
-    		slider.setX(drawAxis);
-    	}
+    	
+    	if (deadzone(twist)>0){
+    		slider.setX(twist);}
+    	
+    	else if (deadzone(twist)<0){
+    		slider.setX(twist);}
+    	
+    	else if (deadzone(drawAxis) > 0) {
+    		slider.setX(drawAxis);}
+    	
+    	else if (deadzone(drawAxis) < 0) {
+    		slider.setX(drawAxis);}
+    	
     	//END MANUAL TEST
     	
     	if (oi.three.get()) {
@@ -131,7 +141,7 @@ public class Robot extends IterativeRobot {
     	
     	//VERT LIFT START
     	
-    	double liftAx = oi.logitech.getRawAxis(2);
+    	double liftAx = oi.logitech.getRawAxis(1);
     	if (deadzone(liftAx) != 0) {
     		vertLift.setHeight(deadzone(liftAx));
     	}
