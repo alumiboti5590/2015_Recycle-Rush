@@ -22,6 +22,7 @@ public class Robot extends IterativeRobot {
 	public VerticalLift vertLift;
 	public Drivetrain drivetrain;
 	public Slides slider;
+	public Noodle noodle;
 	boolean slideExtend = false, slideRetract = false;
 	boolean liftUp = false, liftDown = false;
 	public int pos = -1;
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot {
     	drivetrain = new Drivetrain();
     	vertLift = new VerticalLift();
     	slider = new Slides();
+    	noodle = new Noodle();
     	slider.init();
     	vertLift.init();
     	
@@ -70,8 +72,12 @@ public class Robot extends IterativeRobot {
     		drivetrain.takeJoystickInput(deadzone(left), deadzone(left));
     	} else {
     		drivetrain.takeJoystickInput(deadzone(left), deadzone(right));
-    		drivetrain.takeJoystickInput(deadzone(trigger), deadzone(-trigger));
+    		
     	}
+        
+        if (deadzone(trigger)!=0){
+        	drivetrain.takeJoystickInput(deadzone(trigger), deadzone(-trigger));
+        }
         
         //Rotate
         //Left trigger == forward...Right trigger is backwards
@@ -84,12 +90,12 @@ public class Robot extends IterativeRobot {
     	
     	
     	//SHHHH (Slalom)
-    	if (oi.stop.get()) {
-    		drivetrain.takeJoystickInput(left / 2, left);
-    	}
-    	if (oi.start.get()) {
-    		drivetrain.takeJoystickInput(left, left / 2);
-    	}
+//    	if (oi.stop.get()) {
+//    		drivetrain.takeJoystickInput(left / 2, left);
+//    	}
+//    	if (oi.start.get()) {
+//    		drivetrain.takeJoystickInput(left, left / 2);
+//    	}
     	//END SHHH
     	
     	//DRIVE ROBOT END
@@ -109,33 +115,33 @@ public class Robot extends IterativeRobot {
     	else if (deadzone(twist)<0){
     		slider.setX(twist);}
     	
-    	else if (deadzone(drawAxis) > 0) {
-    		slider.setX(drawAxis);}
-    	
-    	else if (deadzone(drawAxis) < 0) {
-    		slider.setX(drawAxis);}
-    	
+//    	else if (deadzone(drawAxis) > 0) {
+//    		slider.setX(drawAxis);}
+//    	
+//    	else if (deadzone(drawAxis) < 0) {
+//    		slider.setX(drawAxis);}
+//    	
     	//END MANUAL TEST
     	
-    	if (oi.three.get()) {
-    		slideExtend = true;
-    	}
-    	if (oi.four.get()) {
-    		slideRetract = true;
-    	}
-    	
-    	if (slideExtend) {
-    		slideExtend = slider.extend();
-    	} else {
-    		slider.setX(0);
-    	}
-    	
-    	if (slideRetract) {
-    		slideRetract = slider.retract();
-    	} else {
-    		slider.setX(0);
-    	}
-    	
+//    	if (oi.three.get()) {
+//    		slideExtend = true;
+//    	}
+//    	if (oi.four.get()) {
+//    		slideRetract = true;
+//    	}
+//    	
+//    	if (slideExtend) {
+//    		slideExtend = slider.extend();
+//    	} else {
+//    		slider.setX(0);
+//    	}
+//    	
+//    	if (slideRetract) {
+//    		slideRetract = slider.retract();
+//    	} else {
+//    		slider.setX(0);
+//    	}
+//    	
     	
     	//DRAWER END
     	
@@ -146,23 +152,37 @@ public class Robot extends IterativeRobot {
     		vertLift.setHeight(deadzone(liftAx));
     	}
     	
-    	
-    	if (oi.eleven.get()) { pos = 0;}
-    	
-    	if (oi.twelve.get()) {pos = 1;}
-    	
-    	if (oi.nine.get()) { pos = 2;}
-    	
-    	if (oi.ten.get()) {	pos = 3; }
-    	
-    	if (oi.seven.get()) { pos = 4; }
-    	
-    	if (pos != -1) { //Moves lift mech
-    		pos = vertLift.mover(pos);
-    	}
+//    	
+//    	if (oi.eleven.get()) { pos = 0;}
+//    	
+//    	if (oi.twelve.get()) {pos = 1;}
+//    	
+//    	if (oi.nine.get()) { pos = 2;}
+//    	
+//    	if (oi.ten.get()) {	pos = 3; }
+//    	
+//    	if (oi.seven.get()) { pos = 4; }
+//    	
+//    	if (pos != -1) { //Moves lift mech
+//    		pos = vertLift.mover(pos);
+//    	}
     	
     	
     	//VERT LIFT END
+    	
+    	//NOODLE START
+    	
+    	if (oi.five.get()) {
+    			noodle.lift();
+    			noodle.resetLift();
+    		}
+    	
+    	if (oi.six.get()) {
+    		noodle.eject();
+    		noodle.resetDrop();
+    	}
+    	
+    	//NOODLE END
     	
     	System.out.println(RobotMap.liftLeft.getDistance());
     	

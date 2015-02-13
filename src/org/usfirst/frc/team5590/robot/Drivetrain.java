@@ -29,7 +29,7 @@ public class Drivetrain extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
-	/*
+	/**
 	 * @param left takes left joystick between (-1, 1)
 	 * 
 	 * @param right takes right joystick position between (-1, 1) --Drives robot
@@ -39,7 +39,7 @@ public class Drivetrain extends Subsystem {
 		robotDrive2.tankDrive(left, right);
 	}
 
-	/*
+	/**
 	 * @param speed is the set speed (method used in autonomous or for testing
 	 * purposes.
 	 */
@@ -47,7 +47,7 @@ public class Drivetrain extends Subsystem {
 			robotDrive2.tankDrive(speed, speed);
 	}
 
-	/*
+	/**
 	 * @param speed is the speed for the right track to move, left track moves
 	 * at half of that, turning robot counterClockwise
 	 */
@@ -55,7 +55,7 @@ public class Drivetrain extends Subsystem {
 		robotDrive2.tankDrive(-speed, speed);
 	}
 
-	/*
+	/**
 	 * @param speed is the speed for the left track to move, right track moves
 	 * at half of that, turning robot Clockwise
 	 */

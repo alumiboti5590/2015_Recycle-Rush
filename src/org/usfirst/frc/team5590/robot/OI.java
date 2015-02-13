@@ -45,7 +45,7 @@ public class OI {
     public JoystickButton a, b, x, y, rightB, leftB, start, stop;
     
     //Logitech Buttons
-    public JoystickButton trigger, thumb, three, four, seven, eight, nine, ten, eleven, twelve;
+    public JoystickButton trigger, thumb, three, four, five, six, seven, eight, nine, ten, eleven, twelve;
     
     double xboxTrigger;
     //Xbox Axis
@@ -99,6 +99,10 @@ public class OI {
         three = new JoystickButton(logitech, 3);
         
         four = new JoystickButton(logitech, 4);
+        
+        five = new JoystickButton(logitech, 5);
+        
+        six = new JoystickButton(logitech, 6);
         
         seven = new JoystickButton(logitech, 7);
         
