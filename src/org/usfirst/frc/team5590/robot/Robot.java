@@ -61,22 +61,22 @@ public class Robot extends IterativeRobot {
     	//DRIVE ROBOT
     	//Figure out speed of tracks from YAxis inputs
     	double left, right, trigger;
-    	left = (Math.pow(oi.xbox.getRawAxis(1), 3) * -1.0);
-        right = (Math.pow(oi.xbox.getRawAxis(5), 3) * -1.0);
+    	left = oi.xbox.getRawAxis(1)*-1;
+        right = oi.xbox.getRawAxis(5)*-1;
         //used to be 5 
-        trigger = (Math.pow(oi.xbox.getRawAxis(3), 3) * -1.0);
+        trigger = oi.xbox.getRawAxis(3)*-1;
     	
         
         // Basic drive commands....A makes tracks go equal AKA Straight
         if (oi.a.get() == true) {
-    		drivetrain.takeJoystickInput(deadzone(left), deadzone(left));
+    		drivetrain.takeJoystickInput(left, left);
     	} else {
-    		drivetrain.takeJoystickInput(deadzone(left), deadzone(right));
+    		drivetrain.takeJoystickInput(left, right);
     		
     	}
         
         if (deadzone(trigger)!=0){
-        	drivetrain.takeJoystickInput(deadzone(trigger), deadzone(-trigger));
+        	drivetrain.takeJoystickInput(trigger, -trigger);
         }
         
         //Rotate
@@ -105,15 +105,12 @@ public class Robot extends IterativeRobot {
     	double drawAxis;
     	drawAxis = (oi.logitech.getRawAxis(5))/2;
     	double twist;
-    	twist = oi.logitech.getRawAxis(2);
+    	twist = oi.logitech.getRawAxis(0);
+    	
     	
     	//USED FOR TESTING SLIDER MANUALLY
     	
-    	if (deadzone(twist)>0){
-    		slider.setX(twist);}
-    	
-    	else if (deadzone(twist)<0){
-    		slider.setX(twist);}
+    	slider.setX(twist);
     	
 //    	else if (deadzone(drawAxis) > 0) {
 //    		slider.setX(drawAxis);}
@@ -148,24 +145,27 @@ public class Robot extends IterativeRobot {
     	//VERT LIFT START
     	
     	double liftAx = oi.logitech.getRawAxis(1);
-    	if (deadzone(liftAx) != 0) {
-    		vertLift.setHeight(deadzone(liftAx));
-    	}
-    	
-//    	
-//    	if (oi.eleven.get()) { pos = 0;}
-//    	
-//    	if (oi.twelve.get()) {pos = 1;}
-//    	
-//    	if (oi.nine.get()) { pos = 2;}
-//    	
-//    	if (oi.ten.get()) {	pos = 3; }
-//    	
-//    	if (oi.seven.get()) { pos = 4; }
-//    	
-//    	if (pos != -1) { //Moves lift mech
-//    		pos = vertLift.mover(pos);
+//    	if (deadzone(liftAx) != 0) {
+//    		vertLift.setHeight(deadzone(liftAx));
 //    	}
+    	
+		RobotMap.liftController.set(liftAx);
+    		
+    	
+    	
+    	if (oi.eleven.get()) { pos = 0;}
+    	
+    	if (oi.twelve.get()) {pos = 1;}
+    	
+    	if (oi.nine.get()) { pos = 2;}
+    	
+    	if (oi.ten.get()) {	pos = 3; }
+    	
+    	if (oi.seven.get()) { pos = 4; }
+    	
+    	if (pos != -1) { //Moves lift mech
+    		pos = vertLift.mover(pos);
+    	}
     	
     	
     	//VERT LIFT END

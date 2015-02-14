@@ -36,7 +36,7 @@ public class Drivetrain extends Subsystem {
 	 * using the joysticks
 	 */
 	public void takeJoystickInput(double left, double right) {
-		robotDrive2.tankDrive(left, right);
+		robotDrive2.tankDrive(left, (right*.8));
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class Drivetrain extends Subsystem {
 	 * purposes.
 	 */
 	public void setSpeed(double speed) {
-			robotDrive2.tankDrive(speed, speed);
+			robotDrive2.tankDrive(speed, (speed*.8));
 	}
 
 	/**
