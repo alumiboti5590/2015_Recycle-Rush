@@ -23,43 +23,59 @@ public class Noodle extends Subsystem {
      * Throws the lifting servos forward 150 degrees
      * to pick up the desired noodle 
      */
-    public void lift(){
+    public boolean lift(){
+    	if(noodleLiftL.getAngle()<=150){
     	noodleLiftL.setAngle(150);
     	noodleLiftR.setAngle(150);
+    	return true;}
+    	else { return false;}
     }
     /**
      * Throws the ejecting servos forward 100 degrees
      * to discard the stored noodle
      */
-    public void eject(){
+    public boolean eject(){
+    	if(noodleDropL.getAngle()<=100){
     	noodleDropL.setAngle(100);
     	noodleDropR.setAngle(100);
+    	return true;
+    	}
+    	else{ return false;}
     }
     
     /**
      * Resets all servo motors to their base positions
      */
-    public void resetAll(){
-    	noodleDropL.setAngle(0);
+    public boolean resetAll(){
+    	if(noodleLiftL.getAngle()>0){
     	noodleLiftL.setAngle(0);
-    	noodleDropR.setAngle(0);
     	noodleLiftR.setAngle(0);
+    	noodleDropL.setAngle(0);
+    	noodleDropR.setAngle(0);
+    	return true;}
+    	else { return false;}
     }
     
     /**
      * Resets noodleLift servo motors to its base position
      */
-    public void resetLift(){
+    public boolean resetLift(){
+    	if(noodleLiftL.getAngle()>0){
     	noodleLiftL.setAngle(0);
     	noodleLiftR.setAngle(0);
+    	return true;}
+    	else { return false;}
     }
     
     /**
      * Resets noodleDrop servo motors to its base position 
      */
-    public void resetDrop(){
-    	noodleDropR.setAngle(0);
+    public boolean resetDrop(){
+    	if(noodleLiftL.getAngle()>0){
     	noodleDropL.setAngle(0);
+    	noodleDropR.setAngle(0);
+    	return true;}
+    	else { return false;}
     }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.

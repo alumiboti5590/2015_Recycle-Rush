@@ -23,7 +23,7 @@ public class Robot extends IterativeRobot {
 	public Drivetrain drivetrain;
 	public Slides slider;
 	public Noodle noodle;
-	boolean slideExtend = false, slideRetract = false;
+	boolean servoLift = false, servoDrop = false;
 	boolean liftUp = false, liftDown = false;
 	public int pos = -1;
 	/**
@@ -173,6 +173,24 @@ public class Robot extends IterativeRobot {
     	//VERT LIFT END
     	
     	//NOODLE START
+    	if (oi.five.get()) {
+    		servoLift = true;
+    	}
+    	if (oi.six.get()) {
+    		servoDrop = true;
+    	}
+    	
+    	if (servoLift) {
+    		servoLift = slider.extend();
+    	} else {
+    		slider.setX(0);
+    	}
+    	
+    	if (servoDrop) {
+    		servoDrop = slider.retract();
+    	} else {
+    		slider.setX(0);
+    	}
     	
     	if (oi.five.get()) {
     			noodle.lift();
