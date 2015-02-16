@@ -49,7 +49,9 @@ public class Robot extends IterativeRobot {
     	//In theory this should work....if not...well then shit...good luck
     	//If no speed value, then put -1
     	AutonomousMode autoCommand = new AutonomousMode(this);
-    	autoCommand.autoTask(5, "speed", .5);
+    	autoCommand.autoTask(5, "speed", .3);
+    	autoCommand.autoTask(3, "stop", 0);
+    	autoCommand.autoTask(3, "speed", -.3);
     	autoCommand.autoTask(3, "stop", 0);
     	
     }
@@ -103,9 +105,9 @@ public class Robot extends IterativeRobot {
     	//DRAWER BEGIN
     	//Figure out Y Axis of Logitech
     	double drawAxis;
-    	drawAxis = (oi.logitech.getRawAxis(5))/2;
+    	drawAxis = (oi.logitech.getRawAxis(5));
     	double twist;
-    	twist = oi.logitech.getRawAxis(0);
+    	twist = oi.logitech.getRawAxis(2);
     	
     	
     	//USED FOR TESTING SLIDER MANUALLY
@@ -149,7 +151,7 @@ public class Robot extends IterativeRobot {
 //    		vertLift.setHeight(deadzone(liftAx));
 //    	}
     	
-		RobotMap.liftController.set(liftAx);
+		RobotMap.liftController.set(-liftAx);
     		
     	
     	
