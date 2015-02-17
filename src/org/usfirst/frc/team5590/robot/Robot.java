@@ -26,6 +26,9 @@ public class Robot extends IterativeRobot {
 	boolean servoLift = false, servoDrop = false;
 	boolean liftUp = false, liftDown = false;
 	public int pos = -1;
+	int autoCount = 0;
+	boolean autoGo = true;
+	public AutonomousMode autoCommand;
 	/**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -41,6 +44,11 @@ public class Robot extends IterativeRobot {
     	vertLift.init();
     	
     }
+    
+    public void autonomousInit() {
+    	autoCommand = new AutonomousMode(this);
+    	autoCount = 0;
+    }
 
     /**
      * This function is called periodically during autonomous
@@ -48,11 +56,12 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
     	//In theory this should work....if not...well then shit...good luck
     	//If no speed value, then put -1
-    	AutonomousMode autoCommand = new AutonomousMode(this);
-    	autoCommand.autoTask(5, "speed", .3);
-    	autoCommand.autoTask(3, "stop", 0);
-    	autoCommand.autoTask(3, "speed", -.3);
-    	autoCommand.autoTask(3, "stop", 0);
+    	if (autoGo = true) {
+    		autoGo = autoCommand.autoTask(autoCount);
+    	} else {
+    		autoGo = false;
+    	}
+    	autoCount++;
     	
     }
 

@@ -13,7 +13,24 @@ public class AutonomousMode {
 		robot = robo;
 	}
     
-	public void autoTask(int seconds, String command, double speed) {
+	public boolean autoTask(int counter) {
+		if (counter <= 750) {
+			if (counter <= 50) {
+				robot.drivetrain.setSpeed(.4);
+			} else if (counter<=100){
+				robot.drivetrain.rotateLeft(.8);
+			} else if (counter <= 200){
+				robot.drivetrain.setSpeed(-.4);
+			} else{
+				robot.drivetrain.stop();
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public void auto(int seconds, String command, double speed) {
 		timer = new Timer();
 		//Creates task for set number of seconds
 		timer.schedule(new TaskFinisher(), seconds * 1000);
