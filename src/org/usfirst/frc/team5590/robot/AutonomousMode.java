@@ -2,6 +2,7 @@ package org.usfirst.frc.team5590.robot;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
 import org.usfirst.frc.team5590.robot.Robot;
 
 
@@ -16,13 +17,25 @@ public class AutonomousMode {
 	public boolean autoTask(int counter) {
 		if (counter <= 750) {
 			if (counter <= 50) {
-				robot.drivetrain.setSpeed(.4);
-			} else if (counter<=100){
-				robot.drivetrain.rotateLeft(.8);
-			} else if (counter <= 200){
-				robot.drivetrain.setSpeed(-.4);
-			} else{
+				//Slide out drawer
+				//robot.slider.setX(1);
+			} else if (counter<=90){
+				//lift tote
+				RobotMap.liftController.set(-1);
+			} else if (counter <= 123){
+				//rotate right
+				RobotMap.liftController.set(0);
+				robot.drivetrain.rotateRight(-.58);
+			} else if(counter <= 373) {
+				//drive into zone 3 seconds
+				robot.drivetrain.setSpeed(.5);
+			} else if (counter <= 413){
+				//lower
 				robot.drivetrain.stop();
+				RobotMap.liftController.set(1);
+			} else {
+				robot.drivetrain.stop();
+				RobotMap.liftController.set(0);
 			}
 			return true;
 		} else {

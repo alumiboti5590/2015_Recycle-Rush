@@ -23,7 +23,7 @@ public class Robot extends IterativeRobot {
 	public Drivetrain drivetrain;
 	public Slides slider;
 	public Noodle noodle;
-	boolean servoLift = false, servoDrop = false;
+	boolean servoLift = false, servoDrop = false, servoLReset = false, servoDReset = false, servoAllReset = false;
 	boolean liftUp = false, liftDown = false;
 	public int pos = -1;
 	int autoCount = 0;
@@ -188,28 +188,36 @@ public class Robot extends IterativeRobot {
     	if (oi.six.get()) {
     		servoDrop = true;
     	}
+    	if (oi.three.get()) {
+    		servoLReset = true;
+    	}
+    	if (oi.four.get()) {
+    		servoDReset = true;
+    	}
+    	if (oi.thumb.get()) {
+    		servoAllReset = true;
+    	}
+    	
     	
     	if (servoLift) {
-    		servoLift = slider.extend();
-    	} else {
-    		slider.setX(0);
-    	}
+    		servoLift = noodle.lift();
+    	} 
     	
     	if (servoDrop) {
-    		servoDrop = slider.retract();
-    	} else {
-    		slider.setX(0);
-    	}
+    		servoDrop = noodle.eject();
+    	} 
     	
-    	if (oi.five.get()) {
-    			noodle.lift();
-    			noodle.resetLift();
-    		}
+    	if (servoLReset) {
+    		servoLReset = noodle.resetLift();
+    	} 
     	
-    	if (oi.six.get()) {
-    		noodle.eject();
-    		noodle.resetDrop();
-    	}
+    	if (servoDReset) {
+    		servoDReset = noodle.resetDrop();
+    	} 
+    	
+    	if (servoAllReset) {
+    		servoAllReset = noodle.resetAll();
+    	} 
     	
     	//NOODLE END
     	

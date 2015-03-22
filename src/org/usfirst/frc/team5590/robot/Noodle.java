@@ -24,8 +24,8 @@ public class Noodle extends Subsystem {
      * to pick up the desired noodle 
      */
     public boolean lift(){
-    	if(noodleLiftL.getAngle()<=150){
-    	noodleLiftL.setAngle(150);
+    	if(noodleLiftR.getAngle()<150){
+    	noodleLiftL.setAngle(0);
     	noodleLiftR.setAngle(150);
     	return true;}
     	else { return false;}
@@ -35,8 +35,8 @@ public class Noodle extends Subsystem {
      * to discard the stored noodle
      */
     public boolean eject(){
-    	if(noodleDropL.getAngle()<=100){
-    	noodleDropL.setAngle(100);
+    	if(noodleDropR.getAngle()<100){
+    	noodleDropL.setAngle(0);
     	noodleDropR.setAngle(100);
     	return true;
     	}
@@ -47,10 +47,10 @@ public class Noodle extends Subsystem {
      * Resets all servo motors to their base positions
      */
     public boolean resetAll(){
-    	if(noodleLiftL.getAngle()>0){
-    	noodleLiftL.setAngle(0);
+    	if(noodleDropR.getAngle()>0){
+    	noodleLiftL.setAngle(150);
     	noodleLiftR.setAngle(0);
-    	noodleDropL.setAngle(0);
+    	noodleDropL.setAngle(170);
     	noodleDropR.setAngle(0);
     	return true;}
     	else { return false;}
@@ -60,8 +60,8 @@ public class Noodle extends Subsystem {
      * Resets noodleLift servo motors to its base position
      */
     public boolean resetLift(){
-    	if(noodleLiftL.getAngle()>0){
-    	noodleLiftL.setAngle(0);
+    	if(noodleLiftR.getAngle()>0){
+    	noodleLiftL.setAngle(150);
     	noodleLiftR.setAngle(0);
     	return true;}
     	else { return false;}
@@ -71,8 +71,8 @@ public class Noodle extends Subsystem {
      * Resets noodleDrop servo motors to its base position 
      */
     public boolean resetDrop(){
-    	if(noodleLiftL.getAngle()>0){
-    	noodleDropL.setAngle(0);
+    	if(noodleDropR.getAngle()>0){
+    	noodleDropL.setAngle(170);
     	noodleDropR.setAngle(0);
     	return true;}
     	else { return false;}
