@@ -8,7 +8,7 @@ import org.usfirst.frc.team5590.robot.Robot;
 public class AutonomousMode {
 	Timer timer;
 	Robot robot;
-	private final int EXTEND_COUNT = 110;
+	private final int EXTEND_COUNT = 80;
 	private final int LIFT_COUNT = EXTEND_COUNT + 60;
 	private final int ROTATE_COUNT = LIFT_COUNT + 55;
 	private final int DRIVE_COUNT = ROTATE_COUNT + 240;
@@ -20,32 +20,25 @@ public class AutonomousMode {
 
 	public boolean autoTask(int type, int counter) {
 		switch (type) {
-		//DRIVE STRAIGHT BACK Over flat
+		//Pick Up tote but dont move
 		case 0:
 			if (counter <= 750) {
-				if (counter <= EXTEND_COUNT) {
+				if (counter <= 0) {
 					// Slide out drawer
-					robot.slider.setX(1);
-				} else if (counter <= LIFT_COUNT) {
+					//robot.slider.setX(1);
+				} else if (counter <= LIFT_COUNT - 110) {
 					// lift tote
 					robot.slider.setX(0);
 					RobotMap.liftController.set(-1);
-				} else if (counter <= LIFT_COUNT + 380) {
-					//drive backwards
-					RobotMap.liftController.set(0);
-					robot.drivetrain.setSpeed(-.41);
-				} else if (counter <= LIFT_COUNT + 430) {
-					robot.drivetrain.stop();
-					RobotMap.liftController.set(1);
 				} else {
-					robot.drivetrain.stop();
+					//drive backwards
 					RobotMap.liftController.set(0);
 				}
 				return true;
 			} else {
 				return false;
 			}
-		//Drive Back straight over bump
+		//Drive Back straight over bump w/ or w/out can
 		case 1:
 			if (counter <= 750) {
 				if (counter <= EXTEND_COUNT) {
@@ -55,13 +48,13 @@ public class AutonomousMode {
 					// lift tote
 					robot.slider.setX(0);
 					RobotMap.liftController.set(-1);
-				} else if (counter <= LIFT_COUNT + 250) {
+				} else if (counter <= LIFT_COUNT + 100) {
 					//drive backwards
 					RobotMap.liftController.set(0);
-					robot.drivetrain.setSpeed(-.41);
-				} else if (counter <= LIFT_COUNT + 300) {
+					robot.drivetrain.setSpeed(-.91);
+				} else if (counter <= LIFT_COUNT + 250) {
 					robot.drivetrain.stop();
-					RobotMap.liftController.set(1);
+					//RobotMap.liftController.set(1);
 				} else {
 					robot.drivetrain.stop();
 					RobotMap.liftController.set(0);
@@ -69,6 +62,10 @@ public class AutonomousMode {
 				return true;
 			} else {
 				return false;
+			}
+		case 2: //Do nothing
+			if (counter < 750){
+				robot.drivetrain.setSpeed(0);
 			}
 		//Just drive itself in
 		default:

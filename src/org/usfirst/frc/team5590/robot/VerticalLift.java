@@ -76,6 +76,7 @@ public class VerticalLift extends Subsystem {
 	
 	public void currentH() { //Gets current distance
 		curHeight = (liftLeft.getDistance() + liftRight.getDistance()) / 2;
+		
 	}
 	
 	public double heightNeed(int pos) { //Gets needed height from position

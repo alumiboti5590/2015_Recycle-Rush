@@ -37,9 +37,19 @@ public class Slides extends Subsystem {
     	curDistance = 0;
     }
     
+    private void printEncoder() {
+    	Encoder enc = RobotMap.sliderEncoder;
+    	System.out.println(enc.getDirection());
+    	System.out.println(enc.getDistance());
+    	System.out.println(enc.getRate());
+    	System.out.println(enc.getRaw());
+    	System.out.println(enc.getTable().toString());
+    }
+    
     public boolean extend() {
     	if (sliderControl.getDistance() < (FULL_EXTEND - curDistance)) {
     		drawerSlide.set(.7);
+    		this.printEncoder();
     		return true;
     	} else {
     		return false;
@@ -49,6 +59,7 @@ public class Slides extends Subsystem {
     public boolean retract() {
     	if(sliderControl.getDistance() > (FULL_EXTEND + curDistance)) {
     		drawerSlide.set(-.7);
+    		this.printEncoder();
     		return true;
     	} else {
     		return false;
